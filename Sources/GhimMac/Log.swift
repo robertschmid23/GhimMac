@@ -6,11 +6,11 @@
 //
 import Foundation
 
-//@LogActor
-public class Log
+@Ghost
+public class Log: Sendable
 {
-    nonisolated(unsafe) private static let shared = GhostLogger()  //static properties are inherently unsafe unless the type conforms to Sendable.  Logger is complicated and may not be good for this.
-    nonisolated(unsafe) private static var loggers: [String: GhostLogger] = [:]
+	private static let shared = GhostLogger()
+	private static var loggers: [String: GhostLogger] = [:]
     
     private static func logger(subsystem: String? = nil, category: String? = nil) -> GhostLogger
     {
