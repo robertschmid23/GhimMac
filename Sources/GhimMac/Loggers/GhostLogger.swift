@@ -37,7 +37,7 @@ class GhostLogger
 	private let TAB = "\t"
 
 	var threshold = Threshold.OFF
-	var logger: Logger
+	var logger: Logger  //OSLog.Logger
 
 	public init(subsystem: String? = nil, category: String? = nil)
 	{
@@ -105,6 +105,9 @@ class GhostLogger
 		}
 	}
 	
+	//If the TTYLogFile is set and necessary, it may be necessary to access it via
+	//  FileHandle.standardOutput.write(logData)
+	//OSLog now handles that naturally
 	fileprivate func setTTYLogFile(_ std: Int32, logRoot: String, suffix: String)
 	{
 		//isatty() IF the app is NOT launched from XCode. i.e. "is a TTY terminal"
@@ -183,12 +186,14 @@ class GhostLogger
             let indent = String(repeating: TAB, count: indentCount)
             let msg = "\(timeFormats.logTime()) \(indent)\(format) (\(fileName):\(line))\n"
             
-#if targetEnvironment(simulator)
-			if let logData = msg.data(using: .utf8)
-			{
-				FileHandle.standardOutput.write(logData)
-			}
-#endif
+//If we are using XLogger this is not necessary as XLogger logs to stdout.
+// but if we are using print or something else, we may need this
+//#if targetEnvironment(simulator)
+//			if let logData = msg.data(using: .utf8)
+//			{
+//				FileHandle.standardOutput.write(logData)
+//			}
+//#endif
 
 			switch level
 			{

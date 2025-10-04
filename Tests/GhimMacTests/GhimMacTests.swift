@@ -11,10 +11,10 @@ import GhimMac
 struct Test
 {		
 	@Test func testLog() async throws {
-		Log.debug("Debug Statement")
-		Log.info("Info Statement")
-		Log.warn("Warn Statement")
-		Log.error("Error Statement")
+		await Log.debug("Debug Statement")
+		await Log.info("Info Statement")
+		await Log.warn("Warn Statement")
+		await Log.error("Error Statement")
 //		Log.markTimerStart(msg: "Start Timer")
 //		Log.markTime(msg: "Check Lap")
 //		Log.markTimerEnd(msg: "End Timer")
