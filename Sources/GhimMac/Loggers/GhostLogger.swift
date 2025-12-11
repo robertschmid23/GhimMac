@@ -39,6 +39,9 @@ class GhostLogger
 	var threshold = Threshold.OFF
 	var logger: Logger  //OSLog.Logger
 
+	var timeString: TimeString { TimeString() }
+	let timerMap: TimerMap = TimerMap()
+
 	public init(subsystem: String? = nil, category: String? = nil)
 	{
 		let suiteName = package + ".GhimMac"

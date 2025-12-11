@@ -12,7 +12,7 @@ public class Log: Sendable
 	private static let shared = GhostLogger()
 	private static var loggers: [String: GhostLogger] = [:]
     
-    private static func logger(subsystem: String? = nil, category: String? = nil) -> GhostLogger
+    static func logger(subsystem: String? = nil, category: String? = nil) -> GhostLogger
     {
         if subsystem == nil && category == nil
         {

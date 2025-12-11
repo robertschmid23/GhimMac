@@ -29,7 +29,7 @@ let package = Package(
         .testTarget(
             name: "GhimMacTests",
             dependencies: ["GhimMac"],
-			resources: [
-			])
+			resources: [.process("Resources")]
+		)
     ]
 )
