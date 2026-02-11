@@ -6,11 +6,11 @@
 //
 import Foundation
 
-@Ghost
-public class Log: Sendable
+//@Ghost
+public class Log //: Sendable
 {
-	private static let shared = GhostLogger()
-	private static var loggers: [String: GhostLogger] = [:]
+	nonisolated(unsafe) private static let shared = GhostLogger()
+	nonisolated(unsafe) private static var loggers: [String: GhostLogger] = [:]
     
     static func logger(subsystem: String? = nil, category: String? = nil) -> GhostLogger
     {
