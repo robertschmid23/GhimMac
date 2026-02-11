@@ -7,5 +7,5 @@
 
 @globalActor
 public actor Ghost {
-	public static let shared = Ghost()
+	public static nonisolated let shared = Ghost()
 }
