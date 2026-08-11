@@ -21,9 +21,9 @@ extension SwiftLogger
 			{
 				reqLog.append("            \(header.key): \(header.value)\n")
 			}
-			if let body = request.httpBody, let raw = String(data: body, encoding: String.Encoding.utf8)
+			if let body = request.httpBody //, let raw = String(data: body, encoding: String.Encoding.utf8)
 			{
-				reqLog.append("            \(raw)\n")
+				reqLog.append("            \(format(body))\n")
 			}
 			reqLog.append("    END HTTP REQUEST \(SwiftLogger.bar)\n\n")
 			fLog(file: file, funcName: funcName, line: line, level: .SESSION, format: reqLog, args: args)
@@ -48,14 +48,31 @@ extension SwiftLogger
 			{
 				respLog.append("            \(header.key): \(header.value)\n")
 			}
-			if let d = data, let raw = String(data: d, encoding: String.Encoding.utf8)
+			if let respData = data //, let raw = String(data: d, encoding: String.Encoding.utf8)
 			{
-				respLog.append("            \(raw)\n")
+				respLog.append("            \(format(respData))\n")
 			}
 			respLog.append("    END HTTP RESPONSE \(SwiftLogger.bar)\n\n")
 			fLog(file: file, funcName: funcName, line: line, level: .SESSION, format: respLog, args: args)
 		}
 	}
 
+	private func format(_ data: Data, prettyPrint: Bool = true) -> String
+	{
+		var formatted = ""
 
+		// make sure this JSON is in the format we expect
+		if let jsonObject = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+		   let prettyData = try? JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted),
+		   let validJSON = String(data: prettyData, encoding: .utf8)
+		{
+			  formatted = validJSON
+		}
+		else if let raw = String(data: data, encoding: String.Encoding.utf8)
+		{
+			formatted = raw
+		}
+
+		return formatted
+	}
 }
