@@ -21,7 +21,7 @@ extension SwiftLogger
 			{
 				reqLog.append("            \(header.key): \(header.value)\n")
 			}
-			if let body = request.httpBody //, let raw = String(data: body, encoding: String.Encoding.utf8)
+			if let body = request.httpBody
 			{
 				reqLog.append("            \(format(body))\n")
 			}
@@ -48,7 +48,7 @@ extension SwiftLogger
 			{
 				respLog.append("            \(header.key): \(header.value)\n")
 			}
-			if let respData = data //, let raw = String(data: d, encoding: String.Encoding.utf8)
+			if let respData = data
 			{
 				respLog.append("            \(format(respData))\n")
 			}
